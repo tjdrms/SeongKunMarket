@@ -11,7 +11,7 @@ import com.example.carrotmarketclone.databinding.ItemArticleBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticleAdapter: ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diffUtil) {
+class ArticleAdapter(val onItemCliked: (ArticleModel) -> Unit): ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(private val binding: ItemArticleBinding):  RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SimpleDateFormat")
@@ -27,6 +27,10 @@ class ArticleAdapter: ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diffU
                 Glide.with(binding.thumbnailImageView)
                     .load(articleModel.imageUrl)
                     .into(binding.thumbnailImageView)
+            }
+
+            binding.root.setOnClickListener {
+                onItemCliked(articleModel)
             }
 
         }
